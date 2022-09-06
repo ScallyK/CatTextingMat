@@ -1,9 +1,23 @@
 import keyboard
 import random
 
-possibleTexts = ["Hello", "I'm hungry!", "I love you!", "Meow!"]
-        
-def randomMessages():
-   print(random.choice(possibleTexts))
+import os
+from twilio.rest import Client
 
-keyboard.on_press_key("space", randomMessages)  
+account_sid = os.environ['AC60afd59343b4cf031e789d8110a4a941']
+auth_token = os.environ['6f34726a3d0a0651b2eb40acc0367819']
+client = Client(account_sid, auth_token)
+
+possibleTexts = ["Hello", "I'm hungry!", "I love you!", "Meow!"] # possible texts the cat can send
+
+def randomMessages():
+   print(random.choice(possibleTexts)) # prints random text from possibleTexts
+
+message = client.messages \
+    .create(
+         body=randomMessages(),
+         from_='+18148851507',
+         to='+6823045002'
+     )
+
+keyboard.on_press_key("space", print(message.sid))  # sends random message upon keypress
