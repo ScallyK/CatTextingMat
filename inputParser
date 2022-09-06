@@ -1,0 +1,9 @@
+import keyboard
+import random
+
+possibleTexts = ["Hello", "I'm hungry!", "I love you!", "Meow!"]
+        
+def randomMessages():
+   print(random.choice(possibleTexts))
+
+keyboard.on_press_key("space", randomMessages)  
